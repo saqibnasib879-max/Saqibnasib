@@ -1,0 +1,89 @@
+@@ -1,2 +1,87 @@
+# John-The-Ripper-Education-Purpose-Only
+John The Ripper - Password Cracking Tool (Offline Cracking) - Cyber Security Full Course (2025) | The Techzeen
+# 🔥 John the Ripper Lab — Offline Hash Cracking (Kali Linux) (Educational Purpose Only)
+
+**Introduction**
+John the Ripper is a powerful, open-source password cracking tool used for offline attacks. It takes password hashes (for example from leaked datasets or lab shadow files) and tries to recover the original passwords using wordlists, rules, and brute-force modes.🧠🔐
+
+---
+
+## ⚖️ Legal disclaimer — READ FIRST
+This material is **only for educational use** on your **own local machine, VM, Docker container, or authorized labs** (TryHackMe, Hack The Box). Never run password cracking tools against public systems or services you do not own or have explicit permission to test. Misuse may be illegal and unethical.🛡️
+
+---
+
+## 🛠️ Step-by-step commands
+
+### 1) Update package lists
+```bash
+sudo apt update
+```
+*Fetch latest package index from repositories.* 🔄
+
+### 2) Install John the Ripper
+```bash
+sudo apt install -y john
+```
+*Install John the Ripper tool.* 🧩
+
+---
+
+### 3) Decompress rockyou (if gzipped) — go to wordlists folder
+```bash
+cd /usr/share/wordlists
+ls
+sudo gunzip rockyou.txt.gz
+ls
+```
+*Go to the wordlists folder, list contents, and decompress `rockyou.txt.gz` (Kali default).* 📂
+
+### 4) Go back to home and create a small demo wordlist
+```bash
+cd ~
+head -n 1000 /usr/share/wordlists/rockyou.txt > ~/rockyou-1000.txt
+ls
+wc -l ~/rockyou-1000.txt
+```
+*Create a small 1000-line subset and verify line count.* ⚡
+
+### 5) Create a raw-MD5 hash of the demo password
+```bash
+echo -n "password123" | md5sum | awk '{print $1}' > ~/john-hashes.txt
+ls
+```
+*Generate the MD5 hash of `password123` and save it into `john-hashes.txt`.* 🔐
+
+### 6) Check the hash
+```bash
+cat ~/john-hashes.txt
+```
+*Display the hash we will try to crack.* 👀
+
+### 7) (Ensure password presence) Append password to small wordlist
+```bash
+echo "password123" >> ~/rockyou-1000.txt
+```
+*Make sure the demo password exists in the wordlist so the cracking demo finishes quickly.* ✅
+
+### 8) Run John with the small wordlist (raw-MD5)
+```bash
+john --format=raw-md5 --wordlist=~/rockyou-1000.txt ~/john-hashes.txt
+```
+*John will try passwords from the small wordlist against the raw-MD5 hash.* ⚔️
+
+### 9) Show cracked results (use format to be safe)
+```bash
+john --show --format=raw-md5 ~/john-hashes.txt
+```
+*Display cracked passwords (what John recovered) in a readable way.* ✅
+
+### 10) Run John with rules (smart mutations)
+```bash
+john --format=raw-md5 --wordlist=~/rockyou-1000.txt --rules ~/john-hashes.txt
+```
+*Use built-in rules to try variations (adds case changes, suffixes, etc.) — useful when base wordlist misses exact password.* 🔁
+
+---
+
+Made with ❤️ by **The Techzeen** — Happy Hacking! 🎉
