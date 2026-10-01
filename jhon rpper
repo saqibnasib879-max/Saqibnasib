@@ -19,13 +19,13 @@ This material is **only for educational use** on your **own local machine, VM, D
 ```bash
 sudo apt update
 ```
-*Fetch latest package index from repositories.* 🔄
+*Fetch latest package index from repositories.* 
 
 ### 2) Install John the Ripper
 ```bash
 sudo apt install -y john
 ```
-*Install John the Ripper tool.* 🧩
+*Install John the Ripper tool.
 
 ---
 
@@ -36,7 +36,7 @@ ls
 sudo gunzip rockyou.txt.gz
 ls
 ```
-*Go to the wordlists folder, list contents, and decompress `rockyou.txt.gz` (Kali default).* 📂
+*Go to the wordlists folder, list contents, and decompress `rockyou.txt.gz` (Kali default).
 
 ### 4) Go back to home and create a small demo wordlist
 ```bash
@@ -45,14 +45,14 @@ head -n 1000 /usr/share/wordlists/rockyou.txt > ~/rockyou-1000.txt
 ls
 wc -l ~/rockyou-1000.txt
 ```
-*Create a small 1000-line subset and verify line count.* ⚡
+*Create a small 1000-line subset and verify line count.*
 
 ### 5) Create a raw-MD5 hash of the demo password
 ```bash
 echo -n "password123" | md5sum | awk '{print $1}' > ~/john-hashes.txt
 ls
 ```
-*Generate the MD5 hash of `password123` and save it into `john-hashes.txt`.* 🔐
+*Generate the MD5 hash of `password123` and save it into `john-hashes.txt`.*
 
 ### 6) Check the hash
 ```bash
@@ -64,19 +64,19 @@ cat ~/john-hashes.txt
 ```bash
 echo "password123" >> ~/rockyou-1000.txt
 ```
-*Make sure the demo password exists in the wordlist so the cracking demo finishes quickly.* ✅
+*Make sure the demo password exists in the wordlist so the cracking demo finishes quickly.
 
 ### 8) Run John with the small wordlist (raw-MD5)
 ```bash
 john --format=raw-md5 --wordlist=~/rockyou-1000.txt ~/john-hashes.txt
 ```
-*John will try passwords from the small wordlist against the raw-MD5 hash.* ⚔️
+*John will try passwords from the small wordlist against the raw-MD5 hash.
 
 ### 9) Show cracked results (use format to be safe)
 ```bash
 john --show --format=raw-md5 ~/john-hashes.txt
 ```
-*Display cracked passwords (what John recovered) in a readable way.* ✅
+*Display cracked passwords (what John recovered) in a readable way.
 
 ### 10) Run John with rules (smart mutations)
 ```bash
@@ -86,4 +86,4 @@ john --format=raw-md5 --wordlist=~/rockyou-1000.txt --rules ~/john-hashes.txt
 
 ---
 
-Made with ❤️ by **The Techzeen** — Happy Hacking! 🎉
+Made with ❤️ by saqib nasib — Happy Hacking! 🎉
